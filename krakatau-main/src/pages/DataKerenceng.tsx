@@ -4,7 +4,7 @@ import Layout from '@/components/layout/Layout';
 import DataTable from '@/components/data/DataTable';
 
 const DataKerenceng: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'flow' | 'chemical' | 'electric'>('flow');
+  const [activeTab, setActiveTab] = useState<'flow' | 'chemical' | 'electric' | 'quality' | 'filter'>('flow');
 
   return (
     <Layout>
@@ -17,10 +17,12 @@ const DataKerenceng: React.FC = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)}>
-          <TabsList>
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="flow">Flow</TabsTrigger>
             <TabsTrigger value="chemical">Chemical</TabsTrigger>
             <TabsTrigger value="electric">Electric</TabsTrigger>
+            <TabsTrigger value="quality">Analisa Kualitas</TabsTrigger>
+            <TabsTrigger value="filter">Unit Filter</TabsTrigger>
           </TabsList>
 
           <TabsContent value="flow" className="mt-6">
@@ -33,6 +35,14 @@ const DataKerenceng: React.FC = () => {
 
           <TabsContent value="electric" className="mt-6">
             <DataTable plant="kerenceng" dataType="electric" />
+          </TabsContent>
+
+          <TabsContent value="quality" className="mt-6">
+            <DataTable plant="kerenceng" dataType="quality" />
+          </TabsContent>
+
+          <TabsContent value="filter" className="mt-6">
+            <DataTable plant="kerenceng" dataType="filter" />
           </TabsContent>
         </Tabs>
       </div>

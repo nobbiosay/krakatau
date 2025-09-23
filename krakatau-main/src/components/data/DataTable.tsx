@@ -30,17 +30,23 @@ import {
   FlowData,
   ChemicalData,
   ElectricData,
+  QualityData,
+  FilterOperationData,
   getFlowData,
   getChemicalData,
   getElectricData,
+  getQualityData,
+  getFilterOperationData,
   saveFlowData,
   saveChemicalData,
   saveElectricData,
+  saveQualityData,
+  saveFilterOperationData,
 } from '@/utils/dataStore';
 
 interface DataTableProps {
   plant: 'kerenceng' | 'cidanau';
-  dataType: 'flow' | 'chemical' | 'electric';
+  dataType: 'flow' | 'chemical' | 'electric' | 'quality' | 'filter';
 }
 
 const ITEMS_PER_PAGE = 15;
@@ -70,6 +76,21 @@ const DataTable: React.FC<DataTableProps> = ({ plant, dataType }) => {
       'ps_i_trafo_i_ak10_lwbp','ps_i_trafo_ii_ak03_lwbp','ps_v_incoming_ba01_lwbp','ps_v_incoming_ba04_lwbp',
       'trafo_i_ak04_wbp','trafo_ii_ak09_wbp','trafo_iii_ak03_wbp','trafo_iv_ak02_wbp',
       'ps_i_trafo_i_ak10_wbp','ps_i_trafo_ii_ak03_wbp','ps_v_incoming_ba01_wbp','ps_v_incoming_ba04_wbp'
+    ],
+    quality: [
+      'jartest_shift_i_ph','jartest_shift_i_dosis_ppm','jartest_shift_i_ppm_aktual',
+      'jartest_shift_ii_ph','jartest_shift_ii_dosis_ppm','jartest_shift_ii_ppm_aktual',
+      'jartest_shift_iii_ph','jartest_shift_iii_dosis_ppm','jartest_shift_iii_ppm_aktual',
+      'lumpur_shift_i_acc_i','lumpur_shift_i_acc_ii','lumpur_shift_i_acc_iii',
+      'lumpur_shift_ii_acc_i','lumpur_shift_ii_acc_ii','lumpur_shift_ii_acc_iii',
+      'lumpur_shift_iii_acc_i','lumpur_shift_iii_acc_ii','lumpur_shift_iii_acc_iii'
+    ],
+    filter: [
+      'unit_i_1_runtime','unit_i_1_jeda','unit_i_2_runtime','unit_i_2_jeda','unit_i_3_runtime','unit_i_3_jeda','unit_i_4_runtime','unit_i_4_jeda',
+      'unit_ii_1_runtime','unit_ii_1_jeda','unit_ii_2_runtime','unit_ii_2_jeda','unit_ii_3_runtime','unit_ii_3_jeda','unit_ii_4_runtime','unit_ii_4_jeda',
+      'unit_iii_1_runtime','unit_iii_1_jeda','unit_iii_2_runtime','unit_iii_2_jeda','unit_iii_3_runtime','unit_iii_3_jeda','unit_iii_4_runtime','unit_iii_4_jeda',
+      'unit_iv_1_runtime','unit_iv_1_jeda','unit_iv_2_runtime','unit_iv_2_jeda','unit_iv_3_runtime','unit_iv_3_jeda','unit_iv_4_runtime','unit_iv_4_jeda',
+      'unit_v_1_runtime','unit_v_1_jeda','unit_v_2_runtime','unit_v_2_jeda','unit_v_3_runtime','unit_v_3_jeda','unit_v_4_runtime','unit_v_4_jeda'
     ],
   };
 
@@ -104,6 +125,10 @@ const [searchTerm, setSearchTerm] = useState('');
         return getChemicalData();
       case 'electric':
         return getElectricData();
+      case 'quality':
+        return getQualityData();
+      case 'filter':
+        return getFilterOperationData();
       default:
         return [];
     }
@@ -119,6 +144,12 @@ const [searchTerm, setSearchTerm] = useState('');
         break;
       case 'electric':
         saveElectricData(newData);
+        break;
+      case 'quality':
+        saveQualityData(newData);
+        break;
+      case 'filter':
+        saveFilterOperationData(newData);
         break;
     }
   };

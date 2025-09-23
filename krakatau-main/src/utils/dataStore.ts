@@ -63,6 +63,85 @@ export interface ElectricData {
   ps_v_incoming_ba04_wbp: number;
 }
 
+export interface QualityData {
+  id: string;
+  date: string;
+  time: string;
+  plant: 'kerenceng' | 'cidanau';
+  // JarTest data
+  jartest_shift_i_ph: number;
+  jartest_shift_i_dosis_ppm: number;
+  jartest_shift_i_ppm_aktual: number;
+  jartest_shift_ii_ph: number;
+  jartest_shift_ii_dosis_ppm: number;
+  jartest_shift_ii_ppm_aktual: number;
+  jartest_shift_iii_ph: number;
+  jartest_shift_iii_dosis_ppm: number;
+  jartest_shift_iii_ppm_aktual: number;
+  // %Lumpur data
+  lumpur_shift_i_acc_i: number;
+  lumpur_shift_i_acc_ii: number;
+  lumpur_shift_i_acc_iii: number;
+  lumpur_shift_ii_acc_i: number;
+  lumpur_shift_ii_acc_ii: number;
+  lumpur_shift_ii_acc_iii: number;
+  lumpur_shift_iii_acc_i: number;
+  lumpur_shift_iii_acc_ii: number;
+  lumpur_shift_iii_acc_iii: number;
+}
+
+export interface FilterOperationData {
+  id: string;
+  date: string;
+  time: string;
+  plant: 'kerenceng' | 'cidanau';
+  // Filter Unit I
+  unit_i_1_runtime: number;
+  unit_i_1_jeda: number;
+  unit_i_2_runtime: number;
+  unit_i_2_jeda: number;
+  unit_i_3_runtime: number;
+  unit_i_3_jeda: number;
+  unit_i_4_runtime: number;
+  unit_i_4_jeda: number;
+  // Filter Unit II
+  unit_ii_1_runtime: number;
+  unit_ii_1_jeda: number;
+  unit_ii_2_runtime: number;
+  unit_ii_2_jeda: number;
+  unit_ii_3_runtime: number;
+  unit_ii_3_jeda: number;
+  unit_ii_4_runtime: number;
+  unit_ii_4_jeda: number;
+  // Filter Unit III
+  unit_iii_1_runtime: number;
+  unit_iii_1_jeda: number;
+  unit_iii_2_runtime: number;
+  unit_iii_2_jeda: number;
+  unit_iii_3_runtime: number;
+  unit_iii_3_jeda: number;
+  unit_iii_4_runtime: number;
+  unit_iii_4_jeda: number;
+  // Filter Unit IV
+  unit_iv_1_runtime: number;
+  unit_iv_1_jeda: number;
+  unit_iv_2_runtime: number;
+  unit_iv_2_jeda: number;
+  unit_iv_3_runtime: number;
+  unit_iv_3_jeda: number;
+  unit_iv_4_runtime: number;
+  unit_iv_4_jeda: number;
+  // Filter Unit V
+  unit_v_1_runtime: number;
+  unit_v_1_jeda: number;
+  unit_v_2_runtime: number;
+  unit_v_2_jeda: number;
+  unit_v_3_runtime: number;
+  unit_v_3_jeda: number;
+  unit_v_4_runtime: number;
+  unit_v_4_jeda: number;
+}
+
 export interface DashboardSummary {
   flow_usage: number;
   flow_delta: number;
@@ -189,6 +268,8 @@ const STORAGE_KEYS = {
   FLOW_DATA: 'kws_flow_data',
   CHEMICAL_DATA: 'kws_chemical_data',
   ELECTRIC_DATA: 'kws_electric_data',
+  QUALITY_DATA: 'kws_quality_data',
+  FILTER_OPERATION_DATA: 'kws_filter_operation_data',
 };
 
 // Data persistence functions
@@ -219,11 +300,33 @@ export const getElectricData = (): ElectricData[] => {
   return stored ? JSON.parse(stored) : [];
 };
 
+// Quality data persistence functions
+export const saveQualityData = (data: QualityData[]) => {
+  localStorage.setItem(STORAGE_KEYS.QUALITY_DATA, JSON.stringify(data));
+};
+
+export const getQualityData = (): QualityData[] => {
+  const stored = localStorage.getItem(STORAGE_KEYS.QUALITY_DATA);
+  return stored ? JSON.parse(stored) : [];
+};
+
+// Filter operation data persistence functions
+export const saveFilterOperationData = (data: FilterOperationData[]) => {
+  localStorage.setItem(STORAGE_KEYS.FILTER_OPERATION_DATA, JSON.stringify(data));
+};
+
+export const getFilterOperationData = (): FilterOperationData[] => {
+  const stored = localStorage.getItem(STORAGE_KEYS.FILTER_OPERATION_DATA);
+  return stored ? JSON.parse(stored) : [];
+};
+
 // Clear all data (for testing purposes)
 export const clearAllData = () => {
   localStorage.removeItem(STORAGE_KEYS.FLOW_DATA);
   localStorage.removeItem(STORAGE_KEYS.CHEMICAL_DATA);
   localStorage.removeItem(STORAGE_KEYS.ELECTRIC_DATA);
+  localStorage.removeItem(STORAGE_KEYS.QUALITY_DATA);
+  localStorage.removeItem(STORAGE_KEYS.FILTER_OPERATION_DATA);
   console.log('=== ALL DATA CLEARED ===');
 };
 // Initialize with mock data if empty

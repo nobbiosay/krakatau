@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LogOut, Droplets } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import krakatauLogo from '@/assets/logo.png';
 
 const Topbar: React.FC = () => {
   const { user, logout } = useAuth();
@@ -19,8 +20,8 @@ const Topbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <Droplets className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 rounded-lg overflow-hidden">
+              <img src={krakatauLogo} alt="Krakatau Logo" className="w-full h-full object-contain" />
             </div>
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold text-foreground">Krakatau Water Solution</h1>

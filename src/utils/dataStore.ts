@@ -181,6 +181,8 @@ export const generateMockData = (plant: 'kerenceng' | 'cidanau', days: number = 
   const flowData: FlowData[] = [];
   const chemicalData: ChemicalData[] = [];
   const electricData: ElectricData[] = [];
+  const qualityData: QualityData[] = [];
+  const filterOperationData: FilterOperationData[] = [];
 
   for (let i = 0; i < days; i++) {
     const date = new Date();
@@ -257,10 +259,91 @@ export const generateMockData = (plant: 'kerenceng' | 'cidanau', days: number = 
         ps_v_incoming_ba01_wbp: Math.round(135 + Math.random() * 70),
         ps_v_incoming_ba04_wbp: Math.round(130 + Math.random() * 65),
       });
+
+      // Quality data (JarTest & Lumpur)
+      qualityData.push({
+        id: generateId(),
+        date: dateStr,
+        time,
+        plant,
+        // JarTest data
+        jartest_shift_i_ph: Math.round((6.5 + Math.random() * 1.5) * 100) / 100,
+        jartest_shift_i_dosis_ppm: Math.round((20 + Math.random() * 30) * 100) / 100,
+        jartest_shift_i_ppm_aktual: Math.round((18 + Math.random() * 25) * 100) / 100,
+        jartest_shift_ii_ph: Math.round((6.5 + Math.random() * 1.5) * 100) / 100,
+        jartest_shift_ii_dosis_ppm: Math.round((20 + Math.random() * 30) * 100) / 100,
+        jartest_shift_ii_ppm_aktual: Math.round((18 + Math.random() * 25) * 100) / 100,
+        jartest_shift_iii_ph: Math.round((6.5 + Math.random() * 1.5) * 100) / 100,
+        jartest_shift_iii_dosis_ppm: Math.round((20 + Math.random() * 30) * 100) / 100,
+        jartest_shift_iii_ppm_aktual: Math.round((18 + Math.random() * 25) * 100) / 100,
+        // %Lumpur data
+        lumpur_shift_i_acc_i: Math.round((10 + Math.random() * 20) * 100) / 100,
+        lumpur_shift_i_acc_ii: Math.round((8 + Math.random() * 18) * 100) / 100,
+        lumpur_shift_i_acc_iii: Math.round((12 + Math.random() * 22) * 100) / 100,
+        lumpur_shift_ii_acc_i: Math.round((10 + Math.random() * 20) * 100) / 100,
+        lumpur_shift_ii_acc_ii: Math.round((8 + Math.random() * 18) * 100) / 100,
+        lumpur_shift_ii_acc_iii: Math.round((12 + Math.random() * 22) * 100) / 100,
+        lumpur_shift_iii_acc_i: Math.round((10 + Math.random() * 20) * 100) / 100,
+        lumpur_shift_iii_acc_ii: Math.round((8 + Math.random() * 18) * 100) / 100,
+        lumpur_shift_iii_acc_iii: Math.round((12 + Math.random() * 22) * 100) / 100,
+      });
+
+      // Filter Operation data
+      filterOperationData.push({
+        id: generateId(),
+        date: dateStr,
+        time,
+        plant,
+        // Filter Unit I
+        unit_i_1_runtime: Math.round(120 + Math.random() * 240), // 2-6 hours in minutes
+        unit_i_1_jeda: Math.round(5 + Math.random() * 25),
+        unit_i_2_runtime: Math.round(120 + Math.random() * 240),
+        unit_i_2_jeda: Math.round(5 + Math.random() * 25),
+        unit_i_3_runtime: Math.round(120 + Math.random() * 240),
+        unit_i_3_jeda: Math.round(5 + Math.random() * 25),
+        unit_i_4_runtime: Math.round(120 + Math.random() * 240),
+        unit_i_4_jeda: Math.round(5 + Math.random() * 25),
+        // Filter Unit II
+        unit_ii_1_runtime: Math.round(120 + Math.random() * 240),
+        unit_ii_1_jeda: Math.round(5 + Math.random() * 25),
+        unit_ii_2_runtime: Math.round(120 + Math.random() * 240),
+        unit_ii_2_jeda: Math.round(5 + Math.random() * 25),
+        unit_ii_3_runtime: Math.round(120 + Math.random() * 240),
+        unit_ii_3_jeda: Math.round(5 + Math.random() * 25),
+        unit_ii_4_runtime: Math.round(120 + Math.random() * 240),
+        unit_ii_4_jeda: Math.round(5 + Math.random() * 25),
+        // Filter Unit III
+        unit_iii_1_runtime: Math.round(120 + Math.random() * 240),
+        unit_iii_1_jeda: Math.round(5 + Math.random() * 25),
+        unit_iii_2_runtime: Math.round(120 + Math.random() * 240),
+        unit_iii_2_jeda: Math.round(5 + Math.random() * 25),
+        unit_iii_3_runtime: Math.round(120 + Math.random() * 240),
+        unit_iii_3_jeda: Math.round(5 + Math.random() * 25),
+        unit_iii_4_runtime: Math.round(120 + Math.random() * 240),
+        unit_iii_4_jeda: Math.round(5 + Math.random() * 25),
+        // Filter Unit IV
+        unit_iv_1_runtime: Math.round(120 + Math.random() * 240),
+        unit_iv_1_jeda: Math.round(5 + Math.random() * 25),
+        unit_iv_2_runtime: Math.round(120 + Math.random() * 240),
+        unit_iv_2_jeda: Math.round(5 + Math.random() * 25),
+        unit_iv_3_runtime: Math.round(120 + Math.random() * 240),
+        unit_iv_3_jeda: Math.round(5 + Math.random() * 25),
+        unit_iv_4_runtime: Math.round(120 + Math.random() * 240),
+        unit_iv_4_jeda: Math.round(5 + Math.random() * 25),
+        // Filter Unit V
+        unit_v_1_runtime: Math.round(120 + Math.random() * 240),
+        unit_v_1_jeda: Math.round(5 + Math.random() * 25),
+        unit_v_2_runtime: Math.round(120 + Math.random() * 240),
+        unit_v_2_jeda: Math.round(5 + Math.random() * 25),
+        unit_v_3_runtime: Math.round(120 + Math.random() * 240),
+        unit_v_3_jeda: Math.round(5 + Math.random() * 25),
+        unit_v_4_runtime: Math.round(120 + Math.random() * 240),
+        unit_v_4_jeda: Math.round(5 + Math.random() * 25),
+      });
     }
   }
 
-  return { flowData, chemicalData, electricData };
+  return { flowData, chemicalData, electricData, qualityData, filterOperationData };
 };
 
 // Local storage keys
@@ -342,11 +425,15 @@ export const initializeMockData = () => {
     saveFlowData([...kerencengData.flowData, ...cidanauData.flowData]);
     saveChemicalData([...kerencengData.chemicalData, ...cidanauData.chemicalData]);
     saveElectricData([...kerencengData.electricData, ...cidanauData.electricData]);
+    saveQualityData([...kerencengData.qualityData, ...cidanauData.qualityData]);
+    saveFilterOperationData([...kerencengData.filterOperationData, ...cidanauData.filterOperationData]);
     
-    console.log('=== MOCK DATA INITIALIZED ===');
+    console.log('=== MOCK DATA INITIALIZED WITH QUALITY & FILTER DATA ===');
   } else {
     console.log('=== EXISTING DATA FOUND, SKIPPING MOCK DATA ===');
     console.log('Current flow data count:', getFlowData().length);
+    console.log('Current quality data count:', getQualityData().length);
+    console.log('Current filter data count:', getFilterOperationData().length);
   }
 };
 

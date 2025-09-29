@@ -412,15 +412,25 @@ export const clearAllData = () => {
   localStorage.removeItem(STORAGE_KEYS.FILTER_OPERATION_DATA);
   console.log('=== ALL DATA CLEARED ===');
 };
-// Initialize with mock data if empty
-export const initializeMockData = () => {
-  if (getFlowData().length === 0) {
-    console.log('=== INITIALIZING MOCK DATA ===');
+// Initialize with mock data if empty (or force regenerate for complete data)
+export const initializeMockData = (forceRegenerate = false) => {
+  if (getFlowData().length === 0 || forceRegenerate || getQualityData().length === 0 || getFilterOperationData().length === 0) {
+    if (forceRegenerate) {
+      console.log('=== FORCE REGENERATING ALL MOCK DATA ===');
+      clearAllData();
+    } else {
+      console.log('=== INITIALIZING MISSING MOCK DATA ===');
+    }
+    
     const kerencengData = generateMockData('kerenceng');
     const cidanauData = generateMockData('cidanau');
     
-    console.log('Generated kerenceng flow data:', kerencengData.flowData.length, 'entries');
-    console.log('Generated cidanau flow data:', cidanauData.flowData.length, 'entries');
+    console.log('Generated kerenceng data sets:');
+    console.log('- Flow data:', kerencengData.flowData.length, 'entries');
+    console.log('- Chemical data:', kerencengData.chemicalData.length, 'entries');
+    console.log('- Electric data:', kerencengData.electricData.length, 'entries');
+    console.log('- Quality data:', kerencengData.qualityData.length, 'entries');
+    console.log('- Filter data:', kerencengData.filterOperationData.length, 'entries');
     
     saveFlowData([...kerencengData.flowData, ...cidanauData.flowData]);
     saveChemicalData([...kerencengData.chemicalData, ...cidanauData.chemicalData]);
@@ -428,13 +438,20 @@ export const initializeMockData = () => {
     saveQualityData([...kerencengData.qualityData, ...cidanauData.qualityData]);
     saveFilterOperationData([...kerencengData.filterOperationData, ...cidanauData.filterOperationData]);
     
-    console.log('=== MOCK DATA INITIALIZED WITH QUALITY & FILTER DATA ===');
+    console.log('=== COMPLETE MOCK DATA INITIALIZED ===');
   } else {
-    console.log('=== EXISTING DATA FOUND, SKIPPING MOCK DATA ===');
-    console.log('Current flow data count:', getFlowData().length);
-    console.log('Current quality data count:', getQualityData().length);
-    console.log('Current filter data count:', getFilterOperationData().length);
+    console.log('=== ALL DATA FOUND, CHECKING COMPLETENESS ===');
+    console.log('Flow data count:', getFlowData().length);
+    console.log('Chemical data count:', getChemicalData().length);
+    console.log('Electric data count:', getElectricData().length);
+    console.log('Quality data count:', getQualityData().length);
+    console.log('Filter data count:', getFilterOperationData().length);
   }
+};
+
+// Force regenerate all data (useful for ensuring completeness)
+export const regenerateAllMockData = () => {
+  initializeMockData(true);
 };
 
 

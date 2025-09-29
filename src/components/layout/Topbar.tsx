@@ -20,7 +20,7 @@ const Topbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-lg overflow-hidden">
+            <div className="w-12 h-12 rounded-lg overflow-hidden bg-white p-1">
               <img src={krakatauLogo} alt="Krakatau Logo" className="w-full h-full object-contain" />
             </div>
             <div className="hidden sm:block">

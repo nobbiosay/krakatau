@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { useEffect } from "react";
+import { initializeMockData } from "@/utils/dataStore";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import InputKerenceng from "./pages/InputKerenceng";
@@ -16,7 +18,13 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  useEffect(() => {
+    // Initialize mock data on app start to ensure all data types are available
+    initializeMockData();
+  }, []);
+
+  return (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
@@ -82,5 +90,6 @@ const App = () => (
     </TooltipProvider>
   </QueryClientProvider>
 );
+}
 
 export default App;
